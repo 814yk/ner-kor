@@ -49,10 +49,16 @@ if text:
         entities['start']=int(n['index'])-1
         entities['end']=int(n['index'])-1
     elif "I" in n["entity"]:
-        entities['word']+=n['word']
-        entities['end']+=1
+        if  entities :
+            entities['word']+=n['word']
+            entities['end']+=1
+        else:
+            continue
+
   s = 0
   parsed_text = []
+  if entities and len(new_entities)==0 :
+    new_entities.append(entities)
   for n in new_entities:
 
     parsed_text.append(text[s:n["start"]])
@@ -61,5 +67,3 @@ if text:
   parsed_text.append(text[s:])
   annotated_text(*parsed_text)
   st.json(new_entities)
-
-
